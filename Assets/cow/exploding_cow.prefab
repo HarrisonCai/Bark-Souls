@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1217331167184453983
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -90.96561
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -308.97177
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_Name
+      value: exploding_cow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      propertyPath: m_TagString
+      value: Projectile
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 424112368881320069}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5973577250389865335}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1106348775236301407}
+  m_SourcePrefab: {fileID: 100100000, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+--- !u!1 &2028236040690973710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
+  m_PrefabInstance: {fileID: 1217331167184453983}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &424112368881320069
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028236040690973710}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.120000005, y: 0.24000004, z: 0.25000006}
+  m_Center: {x: -0.0000000018626451, y: -0.030000005, z: 0.0050000004}
+--- !u!54 &5973577250389865335
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028236040690973710}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 20
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1106348775236301407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028236040690973710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a242a536fedf446a2533c4883d3499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noExplode: 0
+  obj: Enemy
+  enemy: Player
+  damage: 0
+  store: {fileID: 0}
+  rb: {fileID: 0}
+  camera: {fileID: 0}
+  Timer: -1e+10
+  mainExplode: {fileID: 9009046773278528009, guid: c1e4be872cbc8b14f9997ac38ab89001, type: 3}
+  subexplode: {fileID: 2353449761957816787, guid: d4d893fa7deeefa48937bfba4b8467d0, type: 3}
