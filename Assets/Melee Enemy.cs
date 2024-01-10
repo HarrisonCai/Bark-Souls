@@ -67,10 +67,11 @@ public class MeleeEnemy : MonoBehaviour
             return false;
         }
     }
-
+    float Wait;
+    bool slash = false;
     private void Update()
     {
-
+        Wait -= Time.deltaTime;
         //Check for sight and attack range
         playerInSightRange = ICanSee(sightRange) || Physics.CheckSphere(transform.position, 0.5f * sightRange, whatIsPlayer);
         playerInAttackRange =Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -85,7 +86,7 @@ public class MeleeEnemy : MonoBehaviour
             ChasePlayer();
             //Debug.Log("Chase");
         }
-        if (playerInAttackRange && playerInSightRange)
+        if (playerInAttackRange && playerInSightRange) 
         {
             AttackPlayer();
             //Debug.Log("Atk");
@@ -146,7 +147,7 @@ public class MeleeEnemy : MonoBehaviour
         walkPointSet = true;
 
     }
-
+    bool over = false;
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
@@ -165,13 +166,35 @@ public class MeleeEnemy : MonoBehaviour
 
         if (!alreadyAttacked && Time.timeScale != 0f)
         {
-
-            ///Attack code here
-            MeleeHitbox.SetActive(true);
-            ///End of attack code
+            isAttacking = true;
+            DelayTimer = Delay;
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), Random.Range(timeBetweenAttacks - 0.2f, timeBetweenAttacks + 0.2f));
+        }
+        if (isAttacking)
+        {
+            if (DelayTimer > 0)
+            {
+                glowyWarning.SetActive(true);
+            }else if (DelayTimer <= 0&& !slash)
+            {
+                glowyWarning.SetActive(false);
+                MeleeHitbox.SetActive(true);
+                slash = true;
+                Wait = 0.1f;
+            }
+            if (slash && Wait <= 0)
+            {
+                slash = false;
+                over = true;
+                MeleeHitbox.SetActive(false);
+            }
+            if (!alreadyAttacked)
+            {
+                isAttacking = false;
+                over = false;
+            }
         }
     }
     private void ResetAttack()
