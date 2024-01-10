@@ -31,6 +31,17 @@ public class MazeGenerator : MonoBehaviour
         }
         _mazeGrid[0, 0].ClearBackWall();
         GenerateMaze(null, _mazeGrid[0, 0]);
+        
+        for (int x=11; x <= 19; x++)
+        {
+            for(int z = 11; z <= 19; z++)
+            {
+                _mazeGrid[x, z].ClearBackWall();
+                _mazeGrid[x, z].ClearFrontWall();
+                _mazeGrid[x, z].ClearRightWall();
+                _mazeGrid[x, z].ClearLeftWall();
+            }
+        }
         surface.BuildNavMesh();
     }
 
@@ -66,7 +77,7 @@ public class MazeGenerator : MonoBehaviour
         int x = (int)currentCell.transform.position.x/mult;
         int z = (int)currentCell.transform.position.z/mult;
 
-        if (x + 1 < _mazeWidth)
+        if (x + 1 < _mazeWidth )
         {
             var cellToRight = _mazeGrid[x + 1, z];
 
