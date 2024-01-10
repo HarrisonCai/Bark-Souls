@@ -14,7 +14,8 @@ public class cow : MonoBehaviour
 
     public Vector3 go;
 
-
+    public float cowTimer = 0f;
+    public float cowrainTimer;
 
     public Rigidbody rb;
     //Attacking
@@ -69,8 +70,8 @@ public class cow : MonoBehaviour
             //Check for sight and attack range
 
 
-            
-            
+
+            cowrainTimer -= Time.deltaTime;
                 AttackPlayer();
                 //Debug.Log("Atk");
             
@@ -85,7 +86,21 @@ public class cow : MonoBehaviour
         //Make sure enemy doesn't move
 
 
+        if (cowrainTimer <= 0)
+        {
+            cowrainTimer = cowTimer;
+            Rigidbody rb= Instantiate(projectile, transform.position + new Vector3(Random.Range(-300, 300), 50f, Random.Range(-300, 300)), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(0, -20, 0);
 
+            rb = Instantiate(projectile, transform.position + new Vector3(Random.Range(-300, 300), 50f, Random.Range(-300, 300)), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(0, -20, 0);
+            rb = Instantiate(projectile, transform.position + new Vector3(Random.Range(-300, 300), 50f, Random.Range(-300, 300)), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(0, -20, 0);
+            rb = Instantiate(projectile, transform.position + new Vector3(Random.Range(-300, 300), 50f, Random.Range(-300, 300)), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(0, -20, 0);
+            rb = Instantiate(projectile, transform.position + new Vector3(Random.Range(-300, 300), 50f, Random.Range(-300, 300)), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(0, -20, 0);
+        }
 
         //transform.LookAt(player);
         CowDir = new Vector3(player.transform.position.x, 120f, player.transform.position.z);
@@ -99,23 +114,23 @@ public class cow : MonoBehaviour
         {
 
             ///Attack code here
-            Rigidbody rb = Instantiate(projectile, player.transform.position + new Vector3(0,30,0), Quaternion.Euler(-90,0,0)).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, player.transform.position + new Vector3(0,30,0), Quaternion.Euler(0,0,0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(0,-40,0);
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(20, -40, 0);
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(-20, -40, 0);
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(0, -40, 20);
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(0, -40, -20);
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(20*(Mathf.Sqrt(2)/2.0f), -40, 20*(Mathf.Sqrt(2) / 2.0f));
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(-20 * (Mathf.Sqrt(2) / 2.0f), -40, 20 * (Mathf.Sqrt(2) / 2.0f));
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(20 * (Mathf.Sqrt(2) / 2.0f), -40, -20 * (Mathf.Sqrt(2) / 2.0f));
-            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(-90, 0, 0)).GetComponent<Rigidbody>();
+            rb = Instantiate(projectile, player.transform.position + new Vector3(0, 30, 0), Quaternion.Euler(0, 0, 0)).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(-20 * (Mathf.Sqrt(2) / 2.0f), -40, -20 * (Mathf.Sqrt(2) / 2.0f));
             ///End of attack code
 

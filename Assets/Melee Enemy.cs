@@ -23,13 +23,14 @@ public class MeleeEnemy : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public GameObject MeleeHitbox;
-    public bool isAttacking;
+    public GameObject MeleeHitbox,glowyWarning;
+    public bool isAttacking = false;
     public float Delay=0.5f;
     public float DelayTimer;
 
     //States
-    public float sightRange, attackRange;
+    public float sightRange;
+    public float attackRange = 2f;
     public bool playerInSightRange, playerInAttackRange;
     public NoisePlay noise;
     public GameObject mesh;
@@ -72,14 +73,14 @@ public class MeleeEnemy : MonoBehaviour
 
         //Check for sight and attack range
         playerInSightRange = ICanSee(sightRange) || Physics.CheckSphere(transform.position, 0.5f * sightRange, whatIsPlayer);
-        playerInAttackRange = ICanSee(attackRange) || Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (!playerInSightRange && !playerInAttackRange)
+        playerInAttackRange =Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        DelayTimer -= Time.deltaTime;
+        if (!playerInSightRange && !playerInAttackRange && !isAttacking)
         {
             //Debug.Log("Patrol");
             Patroling();
         }
-        if (playerInSightRange && !playerInAttackRange)
+        if (playerInSightRange && !playerInAttackRange && !isAttacking)
         {
             ChasePlayer();
             //Debug.Log("Chase");
@@ -92,7 +93,7 @@ public class MeleeEnemy : MonoBehaviour
     }
     private void Patroling()
     {
-        if (!walkPointSet)
+        if (!walkPointSet || !agent.hasPath)
         {
             animator.SetBool("Walk", false);
             animator.SetBool("SprintJump", false);
@@ -100,7 +101,7 @@ public class MeleeEnemy : MonoBehaviour
             SearchWalkPoint();
         }
 
-        if (walkPointSet)
+        if (walkPointSet && agent.hasPath)
         {
             animator.SetBool("Walk", true);
             animator.SetBool("SprintJump", false);
@@ -120,15 +121,18 @@ public class MeleeEnemy : MonoBehaviour
         //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-
+        NavMeshPath path = new NavMeshPath();
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
         RaycastHit hit;
-        if (Physics.Raycast(walkPoint, -transform.up, out hit, 2f))
+        if (Physics.Raycast(walkPoint, -transform.up, out hit, 2f) && NavMesh.CalculatePath(transform.position, walkPoint, NavMesh.AllAreas, path))
         {
-            if (hit.collider.gameObject.layer==3)
+            Debug.Log(hit.collider.gameObject.layer);
+            if (hit.collider.gameObject.layer == 3)
             {
+                agent.path = path;
                 walkPointSet = true;
             }
+
         }
     }
 
@@ -142,14 +146,7 @@ public class MeleeEnemy : MonoBehaviour
         walkPointSet = true;
 
     }
-    Vector2 relativePosition;
-    float d;
-    public float setSpeed = 50f;
-    float yspeed;
-    float hangtime;
-    float sinangle;
-    float cosangle;
-    float dy;
+
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
@@ -159,16 +156,12 @@ public class MeleeEnemy : MonoBehaviour
         animator.SetBool("SprintSlide", false);
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        if (!isAttacking)
+        {
+            transform.LookAt(player);
+        }
 
-        dy = player.transform.position.y - transform.position.y + 0.5f;
-        relativePosition = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z);
-        d = Mathf.Sqrt(Mathf.Pow(relativePosition.x, 2) + Mathf.Pow(relativePosition.y, 2));
-        hangtime = d / setSpeed;
-        sinangle = relativePosition.x / d;
-        cosangle = relativePosition.y / d;
-
-        yspeed = (4.9f * Mathf.Pow(hangtime, 2) + dy) / hangtime;
+        
 
         if (!alreadyAttacked && Time.timeScale != 0f)
         {

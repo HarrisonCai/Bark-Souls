@@ -29,7 +29,7 @@ public class MazeGenerator : MonoBehaviour
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(mult*x, 0, mult*z), Quaternion.identity);
             }
         }
-
+        _mazeGrid[0, 0].ClearBackWall();
         GenerateMaze(null, _mazeGrid[0, 0]);
         surface.BuildNavMesh();
     }

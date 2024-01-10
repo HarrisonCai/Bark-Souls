@@ -104,7 +104,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   Timer: 0
   mainExplode: {fileID: 2604899942655121479, guid: 741cd5a1432d194439f33582538cb64d, type: 3}
-  subexplode: {fileID: 7933538863280856959, guid: 42fe9b7811993ab47a19a2939e3c11ca, type: 3}
+  subexplode: {fileID: 0}
 --- !u!1001 &7234626127684975022
 PrefabInstance:
   m_ObjectHideFlags: 0

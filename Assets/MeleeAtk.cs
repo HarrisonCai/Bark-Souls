@@ -17,10 +17,7 @@ public class MeleeAtk : MonoBehaviour
 
     }
     // Start is called before the first frame update
-    private void Update()
-    {
-        Debug.Log(damage);
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (Enemy.Equals("Enemy"))

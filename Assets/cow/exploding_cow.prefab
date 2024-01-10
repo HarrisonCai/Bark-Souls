@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9720746e9910e554dad0eb9c705c1fa4, type: 3}
       propertyPath: m_TagString
@@ -160,4 +160,3 @@ MonoBehaviour:
   camera: {fileID: 0}
   Timer: -1e+10
   mainExplode: {fileID: 9009046773278528009, guid: c1e4be872cbc8b14f9997ac38ab89001, type: 3}
-  subexplode: {fileID: 2353449761957816787, guid: d4d893fa7deeefa48937bfba4b8467d0, type: 3}

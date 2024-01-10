@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent agent;
-
+    
     public Transform player;
     public Rigidbody playerrb;
     public Animator animator;
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
     }
     private void Patroling()
     {
-        if (!walkPointSet)
+        if (!walkPointSet || !agent.hasPath)
         {
             animator.SetBool("Walk", false);
             animator.SetBool("SprintJump", false);
@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
             SearchWalkPoint();
         }
 
-        if (walkPointSet)
+        if (walkPointSet && agent.hasPath)
         {
             animator.SetBool("Walk", true);
             animator.SetBool("SprintJump", false);
@@ -116,18 +116,21 @@ public class Enemy : MonoBehaviour
         //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-
+        NavMeshPath path = new NavMeshPath();
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
         RaycastHit hit;
-        if (Physics.Raycast(walkPoint, -transform.up, out hit, 2f))
+        if (Physics.Raycast(walkPoint, -transform.up, out hit, 2f)&& NavMesh.CalculatePath(transform.position, walkPoint, NavMesh.AllAreas, path))
         {
             Debug.Log(hit.collider.gameObject.layer);
             if (hit.collider.gameObject.layer == 3)
             {
+                agent.path = path;
                 walkPointSet = true;
             }
             
         }
+        
+        
     }
 
     private void ChasePlayer()

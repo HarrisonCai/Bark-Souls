@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class MovementController : MonoBehaviour
 {
     private enum ControlMode
@@ -14,7 +15,8 @@ public class MovementController : MonoBehaviour
         /// </summary>
         Direct
     }
-
+    public Image dashimg, majoraimg;
+    public TextMeshProUGUI dashpercent, majorapercent;
     [SerializeField] private float m_moveSpeed = 2;
     [SerializeField] private float m_turnSpeed = 200;
     [SerializeField] private float m_jumpForce = 4;
@@ -108,11 +110,11 @@ public class MovementController : MonoBehaviour
         if (m_collisions.Count == 0) { m_isGrounded = false; }
     }
     public float Health = 80;
-    float Meteorcooldown = 0f;
+    float Meteorcooldown = 30f;
     float MeteorTimeRemain;
     public GameObject Meteorprefab;
     bool ult = false;
-    float Dashatkcooldown = 5f;
+    float Dashatkcooldown = 1f;
     float DashTimeRemain;
     float AtkTime;
     float speed;
@@ -257,12 +259,45 @@ public class MovementController : MonoBehaviour
             perfectParryTimer -= Time.deltaTime;
         DelayTimer -= Time.deltaTime;
         nrmlAtkTimer-=Time.deltaTime;
-        DashTimeRemain -= Time.deltaTime;
+        if (DashTimeRemain > 0)
+        {
+            DashTimeRemain -= Time.deltaTime;
+        }
+        if (MeteorTimeRemain > 0)
+        {
+            MeteorTimeRemain -= Time.deltaTime;
+        }
         AtkTime -= Time.deltaTime;
         if (!m_jumpInput && Input.GetKey(KeyCode.Space))
         {
             m_jumpInput = true;
         }
+        if (DashTimeRemain <= 0)
+        {
+            DashTimeRemain = 0;
+        }
+        if (MeteorTimeRemain <= 0)
+        {
+            MeteorTimeRemain = 0;
+        }
+        if (DashTimeRemain == 0)
+        {
+            dashpercent.text = "";
+        }
+        else
+        {
+            dashpercent.text = (DashTimeRemain).ToString("#.0");
+        }
+        if(MeteorTimeRemain==0)
+        {
+            majorapercent.text = "";
+        }
+        else
+        {
+            majorapercent.text = MeteorTimeRemain.ToString("#.0");
+        }
+        dashimg.fillAmount = DashTimeRemain / Dashatkcooldown;
+        majoraimg.fillAmount = MeteorTimeRemain / Meteorcooldown;
     }
     
     
@@ -272,10 +307,9 @@ public class MovementController : MonoBehaviour
 
 
 
-        if (!ult)
-        {
+        
             DirectUpdate();
-        }
+        
 
         m_wasGrounded = m_isGrounded;
         m_jumpInput = false;

@@ -13,7 +13,8 @@ public class ProjectileDestroy : MonoBehaviour
     bool parry = false;
     public Transform camera;
     public float Timer;
-    public GameObject mainExplode, subexplode;
+    bool explode = false;
+    public GameObject mainExplode;
     private void Awake()
     {
         store = GameObject.Find("Player").GetComponent<MovementController>();
@@ -96,10 +97,14 @@ public class ProjectileDestroy : MonoBehaviour
             }
             if (!parry)
             {
-                if (!noExplode)
+                if (!noExplode&& !explode)
                 {
+                    Debug.Log("among");
                     Instantiate(mainExplode, transform.position , Quaternion.Euler(0, 0, 0));
-                    Instantiate(subexplode, transform.position , Quaternion.Euler(0, 0, 0));
+                    explode = true;
+                    this.gameObject.SetActive(false);
+                    Destroy(this.gameObject);
+
                 }
                 this.gameObject.SetActive(false);
                 Destroy(this.gameObject);
