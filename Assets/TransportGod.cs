@@ -110,12 +110,12 @@ public class TransportGod : MonoBehaviour
                 {
                     stopTimers = true;
                     Timer += Time.deltaTime;
-                    if (Timer >= words)
+                    if (Timer >= words*2)
                     {
-                        Timer = words;
+                        Timer = words*2;
                         third = true;
                     }
-                    colorTemp3.a = Timer / words;
+                    colorTemp3.a = Timer / (2*words);
                     three.color = colorTemp3;
                     if (third)
                     {
