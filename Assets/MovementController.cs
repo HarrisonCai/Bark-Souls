@@ -141,6 +141,15 @@ public class MovementController : MonoBehaviour
     public MeleeAtk dropkick;
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L) && points >= 3)
+        {
+            points -= 3;
+            Health += 20;
+            if (Health > 80)
+            {
+                Health = 80;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.F))
         {
             points++;

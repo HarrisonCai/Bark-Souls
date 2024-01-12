@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(walkPoint, -transform.up, out hit, 2f)&& NavMesh.CalculatePath(transform.position, walkPoint, NavMesh.AllAreas, path))
         {
-            Debug.Log(hit.collider.gameObject.layer);
+
             if (hit.collider.gameObject.layer == 3)
             {
                 agent.path = path;
