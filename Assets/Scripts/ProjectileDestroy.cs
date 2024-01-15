@@ -54,6 +54,24 @@ public class ProjectileDestroy : MonoBehaviour
                             Destroy(collision.gameObject);
                         }
                     }
+                    if (collision.gameObject.GetComponent<RangedEnemy>() != null)
+                    {
+                        collision.gameObject.GetComponent<RangedEnemy>().hp -= (damage * 0.5f);
+
+                        if (collision.gameObject.GetComponent<RangedEnemy>().hp <= 0)
+                        {
+                            Destroy(collision.gameObject);
+                        }
+                    }
+                    if (collision.gameObject.GetComponent<MeleeEnemy>() != null)
+                    {
+                        collision.gameObject.GetComponent<MeleeEnemy>().hp -= (damage * 0.5f);
+
+                        if (collision.gameObject.GetComponent<MeleeEnemy>().hp <= 0)
+                        {
+                            Destroy(collision.gameObject);
+                        }
+                    }
                     if (collision.gameObject.GetComponent<cow>() != null)
                     {
                         collision.gameObject.GetComponent<cow>().hp -= (damage * 0.5f);

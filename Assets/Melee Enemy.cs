@@ -11,7 +11,7 @@ public class MeleeEnemy : MonoBehaviour
 
     public Transform player;
     public Rigidbody playerrb;
-    public Animator animator;
+
     public LayerMask whatIsGround, whatIsPlayer;
 
 
@@ -40,7 +40,7 @@ public class MeleeEnemy : MonoBehaviour
     {
 
         playerrb = GameObject.Find("Player").GetComponent<Rigidbody>();
-        animator = mesh.GetComponent<Animator>();
+
         //if (Difficult.slideVal == 4)
         //{
         //  GetComponent<NavMeshAgent>().speed = 12f;
@@ -67,11 +67,11 @@ public class MeleeEnemy : MonoBehaviour
             return false;
         }
     }
-    float Wait;
+
     bool slash = false;
     private void Update()
     {
-        Wait -= Time.deltaTime;
+
         //Check for sight and attack range
         playerInSightRange = ICanSee(sightRange) || Physics.CheckSphere(transform.position, 0.5f * sightRange, whatIsPlayer);
         playerInAttackRange =Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -86,7 +86,7 @@ public class MeleeEnemy : MonoBehaviour
             ChasePlayer();
             //Debug.Log("Chase");
         }
-        if (playerInAttackRange && playerInSightRange) 
+        if ((playerInAttackRange && playerInSightRange)|| isAttacking) 
         {
             AttackPlayer();
             //Debug.Log("Atk");
@@ -96,17 +96,13 @@ public class MeleeEnemy : MonoBehaviour
     {
         if (!walkPointSet || !agent.hasPath)
         {
-            animator.SetBool("Walk", false);
-            animator.SetBool("SprintJump", false);
-            animator.SetBool("SprintSlide", false);
+
             SearchWalkPoint();
         }
 
         if (walkPointSet && agent.hasPath)
         {
-            animator.SetBool("Walk", true);
-            animator.SetBool("SprintJump", false);
-            animator.SetBool("SprintSlide", false);
+
             agent.SetDestination(walkPoint);
         }
 
@@ -139,9 +135,7 @@ public class MeleeEnemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        animator.SetBool("Walk", false);
-        animator.SetBool("SprintJump", true);
-        animator.SetBool("SprintSlide", false);
+
         agent.SetDestination(player.position);
         walkPoint = player.position;
         walkPointSet = true;
@@ -152,56 +146,59 @@ public class MeleeEnemy : MonoBehaviour
     {
         //Make sure enemy doesn't move
 
-        animator.SetBool("Walk", false);
-        animator.SetBool("SprintJump", false);
-        animator.SetBool("SprintSlide", false);
+
         agent.SetDestination(transform.position);
 
         if (!isAttacking)
         {
-            transform.LookAt(player);
+            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
         }
 
         
 
-        if (!alreadyAttacked && Time.timeScale != 0f)
+        if (!isAttacking && Time.timeScale != 0f)
         {
             isAttacking = true;
             DelayTimer = Delay;
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), Random.Range(timeBetweenAttacks - 0.2f, timeBetweenAttacks + 0.2f));
+            
         }
         if (isAttacking)
         {
             if (DelayTimer > 0)
             {
                 glowyWarning.SetActive(true);
-            }else if (DelayTimer <= 0&& !slash)
+            }else if (DelayTimer<=0 && !slash)
             {
-                glowyWarning.SetActive(false);
-                MeleeHitbox.SetActive(true);
                 slash = true;
-                Wait = 0.1f;
+                Invoke(nameof(StartAtk),0);
             }
-            if (slash && Wait <= 0)
-            {
-                slash = false;
-                over = true;
-                MeleeHitbox.SetActive(false);
-            }
-            if (!alreadyAttacked)
-            {
-                isAttacking = false;
-                over = false;
-            }
+
+            
+            
         }
     }
-    private void ResetAttack()
-    {
-        alreadyAttacked = false;
-    }
 
+    private void pauseAtk()
+    {
+        isAttacking = false;
+        slash = false;
+    }
+    private void stopAtk()
+    {
+        MeleeHitbox.SetActive(false);
+        over = true;
+        Invoke(nameof(pauseAtk), 0.5f);
+    }
+    
+    private void StartAtk()
+    {
+        glowyWarning.SetActive(false);
+        MeleeHitbox.SetActive(true);
+
+        Invoke(nameof(stopAtk), 0.3f);
+    }
+    
 
 
 

@@ -12,7 +12,7 @@ public class RangedEnemy : MonoBehaviour
 
     public Transform player;
     public Rigidbody playerrb;
-    public Animator animator;
+
     public LayerMask whatIsGround, whatIsPlayer;
 
 
@@ -37,7 +37,7 @@ public class RangedEnemy : MonoBehaviour
     {
 
         playerrb = GameObject.Find("Player").GetComponent<Rigidbody>();
-        animator = mesh.GetComponent<Animator>();
+ 
         //if (Difficult.slideVal == 4)
         //{
         //  GetComponent<NavMeshAgent>().speed = 12f;
@@ -88,17 +88,13 @@ public class RangedEnemy : MonoBehaviour
     {
         if (!walkPointSet || !agent.hasPath)
         {
-            animator.SetBool("Walk", false);
-            animator.SetBool("SprintJump", false);
-            animator.SetBool("SprintSlide", false);
+
             SearchWalkPoint();
         }
 
         if (walkPointSet && agent.hasPath)
         {
-            animator.SetBool("Walk", true);
-            animator.SetBool("SprintJump", false);
-            animator.SetBool("SprintSlide", false);
+
             agent.SetDestination(walkPoint);
         }
 
@@ -142,14 +138,12 @@ public class RangedEnemy : MonoBehaviour
     {
         //Make sure enemy doesn't move
 
-        animator.SetBool("Walk", false);
-        animator.SetBool("SprintJump", false);
-        animator.SetBool("SprintSlide", false);
+
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        transform.LookAt(new Vector3(player.position.x,transform.position.y,player.position.z));
 
-        dy = player.transform.position.y - transform.position.y + 0.5f;
+        dy = player.transform.position.y - transform.position.y ;
         relativePosition = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z);
         d = Mathf.Sqrt(Mathf.Pow(relativePosition.x, 2) + Mathf.Pow(relativePosition.y, 2));
         hangtime = d / setSpeed;
@@ -162,7 +156,7 @@ public class RangedEnemy : MonoBehaviour
         {
 
             ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position + transform.forward * 0.5f + transform.up * 0.3f, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, transform.position + transform.forward * 0.6f + transform.up * 1f, this.transform.rotation).GetComponent<Rigidbody>();
             rb.velocity = new Vector3(setSpeed * sinangle, yspeed, setSpeed * cosangle);
             ///End of attack code
 

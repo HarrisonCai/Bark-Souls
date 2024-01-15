@@ -15,8 +15,10 @@ public class MovementController : MonoBehaviour
         /// </summary>
         Direct
     }
-    public Image dashimg, majoraimg;
-    public TextMeshProUGUI dashpercent, majorapercent;
+    public Animator animator;
+    public GameObject mesh;
+    public Image dashimg, majoraimg, healimg;
+    public TextMeshProUGUI dashpercent, majorapercent,healpercent;
     [SerializeField] private float m_moveSpeed = 2;
     [SerializeField] private float m_turnSpeed = 200;
     [SerializeField] private float m_jumpForce = 4;
@@ -48,7 +50,7 @@ public class MovementController : MonoBehaviour
     private void Awake()
     {
 
-
+        animator = mesh.GetComponent<Animator>();
         if (!m_rigidBody) { gameObject.GetComponent<Animator>(); }
     }
 
@@ -139,11 +141,24 @@ public class MovementController : MonoBehaviour
     public int points = 0;
     bool DropAtk=false;
     public MeleeAtk dropkick;
+    public float healTimer=0;
+    float heal  =30f;
+    
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L) && points >= 3)
+        if (!parryState || !Atak)
+        {
+            animator.SetBool("1st", false);
+            animator.SetBool("2nd", false);
+            animator.SetBool("3rd", false);
+            animator.SetBool("dash", false);
+            animator.SetBool("drop", false);
+            animator.SetBool("parry", false);
+        }
+        if (Input.GetKeyDown(KeyCode.L) && points >= 3 && healTimer<=0)
         {
             points -= 3;
+            healTimer = heal;
             Health += 20;
             if (Health > 80)
             {
@@ -170,6 +185,9 @@ public class MovementController : MonoBehaviour
         }
         if (nrmlAtk && nrmlAtkNum == 1)
         {
+            animator.SetBool("1st", true);
+
+  
             if (DelayTimer < 0)
             {
                 Atk1.SetActive(true);
@@ -181,10 +199,14 @@ public class MovementController : MonoBehaviour
                 Atk1.SetActive (false);
                 nrmlAtkNum = 2;
                 nrmlAtkTimer = nextAtkWindow;
+                animator.SetBool("1st", false);
             }
         }
         if (nrmlAtk && nrmlAtkNum == 2)
         {
+
+            animator.SetBool("2nd", true);
+
             if (DelayTimer < 0)
             {
                 Atk2.SetActive(true);
@@ -196,10 +218,13 @@ public class MovementController : MonoBehaviour
                 Atk2.SetActive(false);
                 nrmlAtkNum = 3;
                 nrmlAtkTimer = nextAtkWindow;
+                animator.SetBool("2nd", false);
             }
         }
         if (nrmlAtk && nrmlAtkNum == 3)
         {
+
+            animator.SetBool("3rd", true);
             if (!Atk3rd&&DelayTimer < 0)
             {
                 Atk3.SetActive(true);
@@ -216,7 +241,8 @@ public class MovementController : MonoBehaviour
                 nrmlAtk = false;
                 Atk3rd = false;
                 nrmlAtkNum = 1;
-                    
+                Atk3.SetActive(false);
+                animator.SetBool("3rd", false);
             }
         }
 
@@ -224,8 +250,13 @@ public class MovementController : MonoBehaviour
         {
             nrmlAtkNum = 1;
         }
+        if (parryState)
+        {
+            animator.SetBool("parry", true);
+        }
         if (DashAtk)
         {
+            animator.SetBool("dash", true);
             transform.position = Vector3.Slerp(transform.position, AtkDir, Time.deltaTime *20);
             Dash.SetActive(true);
 
@@ -238,6 +269,7 @@ public class MovementController : MonoBehaviour
                 AtkDir = Vector3.zero;
                 DashAtk = false;
                 m_rigidBody.velocity = Vector3.zero;
+                animator.SetBool("dash", false);
             }
         }
         if (ult)
@@ -251,6 +283,7 @@ public class MovementController : MonoBehaviour
         }
         if (DropAtk)
         {
+            animator.SetBool("drop", true);
             Drop.SetActive(true);
             dropkick.damage += Time.deltaTime * 6;
             if (m_isGrounded)
@@ -261,6 +294,7 @@ public class MovementController : MonoBehaviour
                 DropLand.GetComponent<MeleeAtk>().damage = 0.3f * dropkick.damage;
                 Instantiate(DropLand, transform.position - transform.up * 0.4f, Quaternion.Euler(0, 0, 0)) ;
                 m_isGrounded = false;
+                animator.SetBool("drop", false);
             }
         }
         parryTimeRemain -= Time.deltaTime;
@@ -268,6 +302,7 @@ public class MovementController : MonoBehaviour
             perfectParryTimer -= Time.deltaTime;
         DelayTimer -= Time.deltaTime;
         nrmlAtkTimer-=Time.deltaTime;
+        
         if (DashTimeRemain > 0)
         {
             DashTimeRemain -= Time.deltaTime;
@@ -275,6 +310,10 @@ public class MovementController : MonoBehaviour
         if (MeteorTimeRemain > 0)
         {
             MeteorTimeRemain -= Time.deltaTime;
+        }
+        if (healTimer > 0)
+        {
+            healTimer -= Time.deltaTime;
         }
         AtkTime -= Time.deltaTime;
         if (!m_jumpInput && Input.GetKey(KeyCode.Space))
@@ -289,6 +328,10 @@ public class MovementController : MonoBehaviour
         {
             MeteorTimeRemain = 0;
         }
+        if (healTimer <= 0)
+        {
+            healTimer = 0;
+        }
         if (DashTimeRemain == 0)
         {
             dashpercent.text = "";
@@ -296,6 +339,14 @@ public class MovementController : MonoBehaviour
         else
         {
             dashpercent.text = (DashTimeRemain).ToString("#.0");
+        }
+        if (healTimer == 0)
+        {
+            healpercent.text = "";
+        }
+        else
+        {
+            healpercent.text = healTimer.ToString("#.0");
         }
         if(MeteorTimeRemain==0)
         {
@@ -307,6 +358,8 @@ public class MovementController : MonoBehaviour
         }
         dashimg.fillAmount = DashTimeRemain / Dashatkcooldown;
         majoraimg.fillAmount = MeteorTimeRemain / Meteorcooldown;
+        healimg.fillAmount = healTimer / heal;
+
     }
     
     
@@ -378,7 +431,7 @@ public class MovementController : MonoBehaviour
             
             DashAtk = true;
             Atak = true;
-            AtkTime = 0.2f;
+            AtkTime = 0.3f;
             //transform.position += AtkDir * 100 * Time.deltaTime;
         }
         if (Input.GetKeyDown(KeyCode.Q) && MeteorTimeRemain <= 0 && !Atak && points >= 10)
@@ -435,7 +488,7 @@ public class MovementController : MonoBehaviour
         {
             nrmlAtk = true;
             Atak = true;
-            AtkTime = 1.1f;
+            AtkTime = 0.7f;
             DelayTimer = 0.3f;
         }
     }

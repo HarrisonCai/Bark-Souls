@@ -33,6 +33,24 @@ public class MeleeAtk : MonoBehaviour
                         Destroy(other.gameObject);
                     }
                 }
+                if (other.gameObject.GetComponent<MeleeEnemy>() != null)
+                {
+                    other.gameObject.GetComponent<MeleeEnemy>().hp -= damage;
+                    Debug.Log("enter");
+                    if (other.gameObject.GetComponent<MeleeEnemy>().hp <= 0)
+                    {
+                        Destroy(other.gameObject);
+                    }
+                }
+                if (other.gameObject.GetComponent<RangedEnemy>() != null)
+                {
+                    other.gameObject.GetComponent<RangedEnemy>().hp -= damage;
+                    Debug.Log("enter");
+                    if (other.gameObject.GetComponent<RangedEnemy>().hp <= 0)
+                    {
+                        Destroy(other.gameObject);
+                    }
+                }
                 if (other.gameObject.GetComponent<cow>() != null)
                 {
                     other.gameObject.GetComponent<cow>().hp -= damage;
