@@ -165,10 +165,10 @@ public class MovementController : MonoBehaviour
                 Health = 80;
             }
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        /*if (Input.GetKeyDown(KeyCode.F))
         {
             points++;
-        }
+        }*/
         if (points > 10)
         {
             points = 10;
