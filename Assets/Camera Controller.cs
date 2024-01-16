@@ -30,6 +30,8 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        sensX = SenseX.sensitivityx;
+        sensY = SenseY.sensitivityy;
         transform.position = obj.transform.position;
         transform.position += new Vector3(0, 1f);
         if (Input.GetKey(KeyCode.LeftShift))
@@ -38,7 +40,7 @@ public class CameraController : MonoBehaviour
         }
 
         float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY*PauseMenu.inverse;
 
         yRotation += mouseX * multiplier;
 

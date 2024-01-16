@@ -17,7 +17,7 @@ public class MazeGenerator : MonoBehaviour
     public int mult;
 
     private MazeCell[,] _mazeGrid;
-
+    public GameObject archer, melee;
     void Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
@@ -27,6 +27,11 @@ public class MazeGenerator : MonoBehaviour
             for (int z = 0; z < _mazeDepth; z++)
             {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(mult*x, 0, mult*z), Quaternion.identity);
+                if (Random.Range(0, 10) < 3f)
+                {
+                    Instantiate(archer, new Vector3(x * mult, 0.2f, z * mult), Quaternion.identity);
+                    Instantiate(melee, new Vector3(x * mult, 0.2f, z * mult), Quaternion.identity);
+                }
             }
         }
         _mazeGrid[0, 0].ClearBackWall();

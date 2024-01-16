@@ -21,7 +21,7 @@ public class PauseMenu : MonoBehaviour
         {
             inverse = -1;
         }
-        if (Player.GetComponent<ObjectCollection>().Health > 0)
+        if (Player.GetComponent<MovementController>().Health > 0)
         {
             if (Input.GetKeyDown("1"))
             {

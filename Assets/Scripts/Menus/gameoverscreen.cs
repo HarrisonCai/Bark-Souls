@@ -13,58 +13,53 @@ public class gameoverscreen : MonoBehaviour
     public GameObject WinCondition;
     public GameObject button;
     public GameObject Player;
-    public AudioSource MainTheme;
-    public AudioSource GameOverTheme;
-    public AudioSource winm;
-    ObjectCollection check;
-    NoisePlay stuff;
-    Boolean winner = false;
-    Boolean gameoverMusic = false;
+
+    MovementController check;
+
+    bool winner = false;
+
+    public bool winCon=false;
     // Update is called once per frame
     private void Awake()
     {
-        stuff = GameObject.Find("Play EnemyNoise").GetComponent<NoisePlay>();
-        check = Player.GetComponent<ObjectCollection>();
+ 
+        check = Player.GetComponent<MovementController>();
     }
     void Update()
     {
-        if (check.Health <= 0||check.Timer<=0) 
-        {
-            Player.GetComponent<SimpleSampleCharacterControl>().m_moveSpeed = 0;
-            Unalive();
- 
-        }else if (check.Win)
-        {
 
-            Player.GetComponent<SimpleSampleCharacterControl>().m_moveSpeed = 0;
+        if (check.Health <= 0) 
+        {
+            Player.GetComponent<MovementController>().m_rigidBody.velocity = Vector3.zero;
+            Unalive();
+
+        }else if (winCon)
+        {
+            Player.GetComponent<MovementController>().m_rigidBody.velocity = Vector3.zero;
             Win();
         }
     }
     void Win()
     {
-        stuff.battle.Stop();
-        MainTheme.volume = 0;
-        if (!winner)
-        {
-            winm.Play();
-            winner = true;
-        }
+
+
+        
         WinCondition.SetActive(true);
         button.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         Time.timeScale = 0f;
     }
     void Unalive()
     {
-        MainTheme.volume = 0;
-        stuff.battle.Stop();
-        if (gameoverMusic == false) 
-        {
-            GameOverTheme.Play();
-            gameoverMusic = true;
-        }
+
+
+        
         
         gaemoverMenuUI.SetActive(true);
         button.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         Time.timeScale = 0.1f;
         Wait();
         Time.timeScale = 0f;

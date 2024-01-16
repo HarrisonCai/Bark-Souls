@@ -38,7 +38,7 @@ public class MeleeEnemy : MonoBehaviour
     //public bool looking = false;
     private void Awake()
     {
-
+        player = GameObject.Find("Player").GetComponent<Transform>();
         playerrb = GameObject.Find("Player").GetComponent<Rigidbody>();
 
         //if (Difficult.slideVal == 4)

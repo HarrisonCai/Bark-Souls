@@ -8,13 +8,13 @@ public class MeleeAtk : MonoBehaviour
     public float damage;
     public MovementController store;
     public string Enemy;
-
+    public gameoverscreen win;
 
     private void Awake()
     {
         store = GameObject.Find("Player").GetComponent<MovementController>();
 
-
+        win = GameObject.Find("GameEnd").GetComponent<gameoverscreen>();
     }
     // Start is called before the first frame update
 
@@ -78,6 +78,7 @@ public class MeleeAtk : MonoBehaviour
                     {
                         
                         Destroy(other.gameObject);
+                        win.winCon = true;
                     }
                 }
             }

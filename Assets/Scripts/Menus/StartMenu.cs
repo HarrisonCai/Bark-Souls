@@ -20,7 +20,7 @@ public class StartMenu : MonoBehaviour
     public void game_start()
     {
         Time.timeScale = 1f;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainGame");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("TestingPlane");
 
     }
     public void game_istr()

@@ -22,7 +22,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float m_jumpForce = 4;
 
     public CameraController cameraC;
-    [SerializeField] private Rigidbody m_rigidBody = null;
+    [SerializeField] public Rigidbody m_rigidBody = null;
 
     [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
 

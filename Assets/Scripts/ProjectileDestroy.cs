@@ -15,11 +15,13 @@ public class ProjectileDestroy : MonoBehaviour
     public float Timer;
     bool explode = false;
     public GameObject mainExplode;
+    public gameoverscreen win;
     private void Awake()
     {
         store = GameObject.Find("Player").GetComponent<MovementController>();
         rb = GetComponent<Rigidbody>();
         camera = Camera.main.transform;
+        win = GameObject.Find("GameEnd").GetComponent<gameoverscreen>();
     }
     private void Update()
     {
@@ -97,8 +99,9 @@ public class ProjectileDestroy : MonoBehaviour
                         Debug.Log("enter");
                         if (collision.gameObject.GetComponent<God>().hp <= 0)
                         {
-
+                            
                             Destroy(collision.gameObject);
+                            win.winCon = true;
                         }
                     }
                 }

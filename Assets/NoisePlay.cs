@@ -13,7 +13,7 @@ public class NoisePlay : MonoBehaviour
     private void Awake()
     {
         
-        main = GameObject.Find("GameEnd").GetComponent<gameoverscreen>().MainTheme;
+        
     }
     // Update is called once per frame
     void Update()

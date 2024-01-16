@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 99e95c28d6a36544eb943acd224826d0
+  - enabled: 1
     path: Assets/Scenes/TestingPlane.unity
     guid: 981c0833db4a718448fadb9a604bcd92
+  - enabled: 1
+    path: Assets/Scenes/burger-controls.unity
+    guid: 9ee1b9842b81c0f47aa95638cde78826
   m_configObjects: {}
