@@ -458,7 +458,7 @@ public class MovementController : MonoBehaviour
             AtkTime = 5f;
             //transform.position += AtkDir * 100 * Time.deltaTime;
         }
-        if (Input.GetMouseButtonDown(0) && !Atak && !DashAtk&&!nrmlAtk&& m_isGrounded)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.C)) && !Atak && !DashAtk&&!nrmlAtk&& m_isGrounded)
         {
             NormalAtk();
         }

@@ -53,6 +53,7 @@ public class ProjectileDestroy : MonoBehaviour
 
                         if (collision.gameObject.GetComponent<Enemy>().hp <= 0)
                         {
+                            store.points += 2;
                             Destroy(collision.gameObject);
                         }
                     }
@@ -62,6 +63,7 @@ public class ProjectileDestroy : MonoBehaviour
 
                         if (collision.gameObject.GetComponent<RangedEnemy>().hp <= 0)
                         {
+                            store.points += 2;
                             Destroy(collision.gameObject);
                         }
                     }
@@ -71,6 +73,7 @@ public class ProjectileDestroy : MonoBehaviour
 
                         if (collision.gameObject.GetComponent<MeleeEnemy>().hp <= 0)
                         {
+                            store.points += 2;
                             Destroy(collision.gameObject);
                         }
                     }
@@ -89,6 +92,7 @@ public class ProjectileDestroy : MonoBehaviour
 
                         if (collision.gameObject.GetComponent<Gandolf>().hp <= 0)
                         {
+                            store.points += 10;
                             collision.gameObject.GetComponent<Gandolf>().transition.SetActive(true);
                             Destroy(collision.gameObject);
                         }

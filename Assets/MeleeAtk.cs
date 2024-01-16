@@ -30,6 +30,7 @@ public class MeleeAtk : MonoBehaviour
                     Debug.Log("enter");
                     if (other.gameObject.GetComponent<Enemy>().hp <= 0)
                     {
+                        store.points += 2;
                         Destroy(other.gameObject);
                     }
                 }
@@ -39,6 +40,7 @@ public class MeleeAtk : MonoBehaviour
                     Debug.Log("enter");
                     if (other.gameObject.GetComponent<MeleeEnemy>().hp <= 0)
                     {
+                        store.points += 2;
                         Destroy(other.gameObject);
                     }
                 }
@@ -48,6 +50,7 @@ public class MeleeAtk : MonoBehaviour
                     Debug.Log("enter");
                     if (other.gameObject.GetComponent<RangedEnemy>().hp <= 0)
                     {
+                        store.points += 2;
                         Destroy(other.gameObject);
                     }
                 }
@@ -66,6 +69,7 @@ public class MeleeAtk : MonoBehaviour
                     Debug.Log("enter");
                     if (other.gameObject.GetComponent<Gandolf>().hp <= 0)
                     {
+                        store.points += 10;
                         other.gameObject.GetComponent<Gandolf>().transition.SetActive(true);
                         Destroy(other.gameObject);
                     }
