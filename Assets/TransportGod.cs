@@ -16,7 +16,8 @@ public class TransportGod : MonoBehaviour
     bool flashbang = false;
     bool stopTimers = false;
     Color colorTempw,colorTemp1,colorTemp2,colorTemp3;
-    bool done = false;
+    public Transform player;
+    public bool done = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +63,7 @@ public class TransportGod : MonoBehaviour
                     {
                         Timer = words;
                         first = true;
+                        player.transform.position = new Vector3(250, 910, 250);
                     }
                     colorTemp1.a = Timer / words;
                     one.color = colorTemp1;
@@ -119,12 +121,30 @@ public class TransportGod : MonoBehaviour
                     three.color = colorTemp3;
                     if (third)
                     {
-                        Timer = 0;
+                        Timer = FadeIn_out;
                         DelayTimer = Delay;
                         stopTimers = false;
+                        done = true;
                     }
                 }
 
+            }
+        }
+        else
+        {
+            if (Timer >= 0)
+            {
+                Timer -= Time.deltaTime;
+            }
+            if (Timer < 0)
+            {
+                Timer = 0;
+            }
+            colorTempw.a = Timer / FadeIn_out;
+            white.color = colorTempw;
+            if (Timer == 0)
+            {
+                this.gameObject.SetActive(false);
             }
         }
     }

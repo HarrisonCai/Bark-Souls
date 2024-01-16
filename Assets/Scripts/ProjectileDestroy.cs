@@ -81,6 +81,26 @@ public class ProjectileDestroy : MonoBehaviour
                             Destroy(collision.gameObject);
                         }
                     }
+                    if (collision.gameObject.GetComponent<Gandolf>() != null)
+                    {
+                        collision.gameObject.GetComponent<Gandolf>().hp -= (damage * 0.5f);
+
+                        if (collision.gameObject.GetComponent<Gandolf>().hp <= 0)
+                        {
+                            collision.gameObject.GetComponent<Gandolf>().transition.SetActive(true);
+                            Destroy(collision.gameObject);
+                        }
+                    }
+                    if (collision.gameObject.GetComponent<God>() != null    )
+                    {
+                        collision.gameObject.GetComponent<God>().hp -= damage;
+                        Debug.Log("enter");
+                        if (collision.gameObject.GetComponent<God>().hp <= 0)
+                        {
+
+                            Destroy(collision.gameObject);
+                        }
+                    }
                 }
                 if (enemy.Equals("Player"))
                 {
@@ -89,7 +109,7 @@ public class ProjectileDestroy : MonoBehaviour
                         
                         store.parryHit = true;
 
-                        transform.position = camera.position;
+                        transform.position = camera.position+camera.forward;
                         rb.velocity = camera.forward * Vector3.Magnitude(rb.velocity)*0.7f;
                  
                         parry = true;

@@ -60,6 +60,26 @@ public class MeleeAtk : MonoBehaviour
                         Destroy(other.gameObject);
                     }
                 }
+                if (other.gameObject.GetComponent<Gandolf>() != null && !other.gameObject.GetComponent<Gandolf>().shieldUp)
+                {
+                    other.gameObject.GetComponent<Gandolf>().hp -= damage;
+                    Debug.Log("enter");
+                    if (other.gameObject.GetComponent<Gandolf>().hp <= 0)
+                    {
+                        other.gameObject.GetComponent<Gandolf>().transition.SetActive(true);
+                        Destroy(other.gameObject);
+                    }
+                }
+                if (other.gameObject.GetComponent<God>() != null && !other.gameObject.GetComponent<God>().shieldUp)
+                {
+                    other.gameObject.GetComponent<God>().hp -= damage;
+                    Debug.Log("enter");
+                    if (other.gameObject.GetComponent<God>().hp <= 0)
+                    {
+                        
+                        Destroy(other.gameObject);
+                    }
+                }
             }
         }
         if (Enemy.Equals("Player"))

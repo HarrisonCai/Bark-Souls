@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Ledge
   - Melee Hitbox
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - moon
   - cow
   - cow2
-  - 
+  - nonmoonCollide
   - 
   - 
   - 

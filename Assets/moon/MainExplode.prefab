@@ -80,6 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e3efcf855eb604fa5ffaf1b2e34063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 200
+  damage: 50
   store: {fileID: 0}
   Enemy: Enemy

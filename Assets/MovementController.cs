@@ -15,10 +15,8 @@ public class MovementController : MonoBehaviour
         /// </summary>
         Direct
     }
-    public Animator animator;
-    public GameObject mesh;
     public Image dashimg, majoraimg, healimg;
-    public TextMeshProUGUI dashpercent, majorapercent,healpercent;
+    public TextMeshProUGUI dashpercent, majorapercent, healpercent;
     [SerializeField] private float m_moveSpeed = 2;
     [SerializeField] private float m_turnSpeed = 200;
     [SerializeField] private float m_jumpForce = 4;
@@ -27,7 +25,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Rigidbody m_rigidBody = null;
 
     [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
-    
+
     private float m_currentV = 0;
     private float m_currentH = 0;
 
@@ -44,13 +42,14 @@ public class MovementController : MonoBehaviour
     private bool m_jumpInput = false;
 
     private bool m_isGrounded;
-
+    public GameObject mesh;
+    public Animator animator;
     private List<Collider> m_collisions = new List<Collider>();
 
     private void Awake()
     {
-
         animator = mesh.GetComponent<Animator>();
+
         if (!m_rigidBody) { gameObject.GetComponent<Animator>(); }
     }
 
@@ -131,7 +130,7 @@ public class MovementController : MonoBehaviour
     RaycastHit hit;
     bool DashAtk = false;
     bool Atak = false;
-    public GameObject Dash, Atk1, Atk2, Atk3,Drop,DropLand;
+    public GameObject Dash, Atk1, Atk2, Atk3, Drop, DropLand;
     bool nrmlAtk = false;
     int nrmlAtkNum = 1;
     float nextAtkWindow = 0.45f;
@@ -139,21 +138,22 @@ public class MovementController : MonoBehaviour
     bool Atk3rd = false;
     float DelayTimer;
     public int points = 0;
-    bool DropAtk=false;
+    bool DropAtk = false;
     public MeleeAtk dropkick;
-    public float healTimer=0;
-    float heal  =30f;
-    
+    public float healTimer = 0;
+    float heal = 30f;
+
     private void Update()
     {
-        if (!parryState || !Atak)
+        if (!Atak || !parryState || !perfectparryattempt || nrmlAtkTimer > 0)
         {
             animator.SetBool("1st", false);
             animator.SetBool("2nd", false);
             animator.SetBool("3rd", false);
-            animator.SetBool("dash", false);
             animator.SetBool("drop", false);
+            animator.SetBool("dash", false);
             animator.SetBool("parry", false);
+            animator.SetBool("perfectparry", false);
         }
         if (Input.GetKeyDown(KeyCode.L) && points >= 3 && healTimer<=0)
         {
@@ -183,11 +183,23 @@ public class MovementController : MonoBehaviour
         {
             Atk();
         }
+        if (parryState)
+        {
+            animator.SetBool("parry", true);
+        }
+        if (perfectparryattempt)
+        {
+            animator.SetBool("perfectparry", true);
+            animator.SetBool("parry", false);
+            
+        }
+        if (!parryState)
+        {
+            animator.SetBool("parry", false);
+        }
         if (nrmlAtk && nrmlAtkNum == 1)
         {
             animator.SetBool("1st", true);
-
-  
             if (DelayTimer < 0)
             {
                 Atk1.SetActive(true);
@@ -199,14 +211,12 @@ public class MovementController : MonoBehaviour
                 Atk1.SetActive (false);
                 nrmlAtkNum = 2;
                 nrmlAtkTimer = nextAtkWindow;
-                animator.SetBool("1st", false);
             }
         }
         if (nrmlAtk && nrmlAtkNum == 2)
         {
-
+            animator.SetBool("1st", false);
             animator.SetBool("2nd", true);
-
             if (DelayTimer < 0)
             {
                 Atk2.SetActive(true);
@@ -218,12 +228,12 @@ public class MovementController : MonoBehaviour
                 Atk2.SetActive(false);
                 nrmlAtkNum = 3;
                 nrmlAtkTimer = nextAtkWindow;
-                animator.SetBool("2nd", false);
             }
         }
         if (nrmlAtk && nrmlAtkNum == 3)
         {
-
+            
+            animator.SetBool("2nd", false);
             animator.SetBool("3rd", true);
             if (!Atk3rd&&DelayTimer < 0)
             {
@@ -241,7 +251,6 @@ public class MovementController : MonoBehaviour
                 nrmlAtk = false;
                 Atk3rd = false;
                 nrmlAtkNum = 1;
-                Atk3.SetActive(false);
                 animator.SetBool("3rd", false);
             }
         }
@@ -249,10 +258,6 @@ public class MovementController : MonoBehaviour
         if (nrmlAtkNum!=1&&!nrmlAtk && nrmlAtkTimer < 0)
         {
             nrmlAtkNum = 1;
-        }
-        if (parryState)
-        {
-            animator.SetBool("parry", true);
         }
         if (DashAtk)
         {
@@ -431,7 +436,7 @@ public class MovementController : MonoBehaviour
             
             DashAtk = true;
             Atak = true;
-            AtkTime = 0.3f;
+            AtkTime = 0.2f;
             //transform.position += AtkDir * 100 * Time.deltaTime;
         }
         if (Input.GetKeyDown(KeyCode.Q) && MeteorTimeRemain <= 0 && !Atak && points >= 10)
@@ -474,21 +479,21 @@ public class MovementController : MonoBehaviour
         {
             nrmlAtk = true;
             Atak = true;
-            AtkTime = 0.3f;
+            AtkTime = 0.35f;
             DelayTimer = 0.05f;
         }
         if (nrmlAtkNum == 2)
         {
             nrmlAtk = true;
             Atak = true;
-            AtkTime = 0.35f;
+            AtkTime = 0.45f;
             DelayTimer = 0.1f;
         }
         if (nrmlAtkNum == 3)
         {
             nrmlAtk = true;
             Atak = true;
-            AtkTime = 0.7f;
+            AtkTime = 1f;
             DelayTimer = 0.3f;
         }
     }
