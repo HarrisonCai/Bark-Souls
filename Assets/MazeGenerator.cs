@@ -27,7 +27,7 @@ public class MazeGenerator : MonoBehaviour
             for (int z = 0; z < _mazeDepth; z++)
             {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(mult*x, 0, mult*z), Quaternion.identity);
-                if (Random.Range(0, 10) < 1f)
+                if (!((x>10 && 10<20)&&(z>10 && z<20))&&Random.Range(0, 10) < 1.5f)
                 {
                     Instantiate(archer, new Vector3(x * mult, 0.2f, z * mult), Quaternion.identity);
                     Instantiate(archer, new Vector3(x * mult, 0.2f, z * mult), Quaternion.identity);
