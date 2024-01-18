@@ -145,16 +145,7 @@ public class MovementController : MonoBehaviour
 
     private void Update()
     {
-        if (!Atak || !parryState || !perfectparryattempt || nrmlAtkTimer > 0)
-        {
-            animator.SetBool("1st", false);
-            animator.SetBool("2nd", false);
-            animator.SetBool("3rd", false);
-            animator.SetBool("drop", false);
-            animator.SetBool("dash", false);
-            animator.SetBool("parry", false);
-            animator.SetBool("perfectparry", false);
-        }
+        
         if (Input.GetKeyDown(KeyCode.L) && points >= 3 && healTimer<=0)
         {
             points -= 3;
@@ -187,19 +178,14 @@ public class MovementController : MonoBehaviour
         {
             animator.SetBool("parry", true);
         }
-        if (perfectparryattempt)
-        {
-            animator.SetBool("perfectparry", true);
-            animator.SetBool("parry", false);
-            
-        }
+        
         if (!parryState)
         {
             animator.SetBool("parry", false);
         }
         if (nrmlAtk && nrmlAtkNum == 1)
         {
-            animator.SetBool("1st", true);
+            
             if (DelayTimer < 0)
             {
                 Atk1.SetActive(true);
@@ -215,8 +201,7 @@ public class MovementController : MonoBehaviour
         }
         if (nrmlAtk && nrmlAtkNum == 2)
         {
-            animator.SetBool("1st", false);
-            animator.SetBool("2nd", true);
+            
             if (DelayTimer < 0)
             {
                 Atk2.SetActive(true);
@@ -233,8 +218,7 @@ public class MovementController : MonoBehaviour
         if (nrmlAtk && nrmlAtkNum == 3)
         {
             
-            animator.SetBool("2nd", false);
-            animator.SetBool("3rd", true);
+            
             if (!Atk3rd&&DelayTimer < 0)
             {
                 Atk3.SetActive(true);
@@ -251,7 +235,7 @@ public class MovementController : MonoBehaviour
                 nrmlAtk = false;
                 Atk3rd = false;
                 nrmlAtkNum = 1;
-                animator.SetBool("3rd", false);
+                
             }
         }
 
@@ -261,7 +245,7 @@ public class MovementController : MonoBehaviour
         }
         if (DashAtk)
         {
-            animator.SetBool("dash", true);
+            
             transform.position = Vector3.Slerp(transform.position, AtkDir, Time.deltaTime *20);
             Dash.SetActive(true);
 
@@ -274,7 +258,7 @@ public class MovementController : MonoBehaviour
                 AtkDir = Vector3.zero;
                 DashAtk = false;
                 m_rigidBody.velocity = Vector3.zero;
-                animator.SetBool("dash", false);
+                
             }
         }
         if (ult)
@@ -392,6 +376,7 @@ public class MovementController : MonoBehaviour
         }
         if(parryState && Input.GetMouseButtonDown(0)&& !perfectparryattempt)
         {
+            animator.SetTrigger("perfectparry 0");
             perfectparryattempt = true;
             perfectParryTimer = perfectParryWindow;
         }
@@ -422,7 +407,7 @@ public class MovementController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && DashTimeRemain <=0&& !Atak &&points>=1)
         {
             points -= 1;
-            
+            animator.SetTrigger("dash 0");
             AtkDir = transform.position+camera.forward * 25f;
             for (int i = -50; i < 51; i++)
             {
@@ -477,6 +462,7 @@ public class MovementController : MonoBehaviour
     {
         if (nrmlAtkNum == 1)
         {
+            animator.SetTrigger("1st 0");
             nrmlAtk = true;
             Atak = true;
             AtkTime = 0.35f;
@@ -484,6 +470,7 @@ public class MovementController : MonoBehaviour
         }
         if (nrmlAtkNum == 2)
         {
+            animator.SetTrigger("2nd 0");
             nrmlAtk = true;
             Atak = true;
             AtkTime = 0.45f;
@@ -491,6 +478,7 @@ public class MovementController : MonoBehaviour
         }
         if (nrmlAtkNum == 3)
         {
+            animator.SetTrigger("3rd 0");
             nrmlAtk = true;
             Atak = true;
             AtkTime = 1f;
