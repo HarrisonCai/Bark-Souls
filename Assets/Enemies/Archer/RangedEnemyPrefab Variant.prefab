@@ -88,6 +88,14 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 999
       objectReference: {fileID: 0}
+    - target: {fileID: 8132053723758467018, guid: f9e4bbbbc73c19145a35914233507497, type: 3}
+      propertyPath: m_Drag
+      value: 1e+10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8132053723758467018, guid: f9e4bbbbc73c19145a35914233507497, type: 3}
+      propertyPath: m_AngularDrag
+      value: 1e+11
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1942968125848959748, guid: f9e4bbbbc73c19145a35914233507497, type: 3}
     m_RemovedGameObjects:

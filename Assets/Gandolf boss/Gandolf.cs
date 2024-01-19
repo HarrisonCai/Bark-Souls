@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Linq;
+
+using Unity.AI.Navigation;
 public class Gandolf : MonoBehaviour
 {
     public bool shieldUp = false;
@@ -20,6 +23,7 @@ public class Gandolf : MonoBehaviour
     public LayerMask playermask;
     public GameObject transition;
     Vector3 RelativePos;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,7 @@ public class Gandolf : MonoBehaviour
             bossFight = true;
             bossBar.SetActive(true);
             TheWalls.SetActive(true);
+      
             darksouls.Play();
         }
         if (bossFight)

@@ -14,7 +14,8 @@ public class GandolfBossHPBar : MonoBehaviour
     float maxhp;
     float target = 0;
     float currentFill;
-
+    public AudioSource main,boss;
+    bool yes = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +29,10 @@ public class GandolfBossHPBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        main.Pause();
         if (health.hp <= 0)
         {
+            main.Play();
             this.gameObject.SetActive(false);
         }
         if (currentTime < timeToFill)
@@ -37,9 +40,15 @@ public class GandolfBossHPBar : MonoBehaviour
             currentTime += Time.deltaTime;
             image.fillAmount = (currentTime / timeToFill) * (health.hp / maxhp);
             hppercent.text = "" + (image.fillAmount * 100).ToString("#") + " %";
+           
         }
         else
         {
+            if (!yes)
+            {
+                yes = true;
+                boss.PlayDelayed(15f);
+            }
             hppercent.text = "" + ((health.hp / maxhp) * 100).ToString("#") + " %";
             UpdateHealthBar();
         }
