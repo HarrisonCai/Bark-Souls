@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    public AudioSource main;
     public bool Paused = false;
     public static int inverse=1;
     public GameObject pauseMenuUI;
@@ -50,12 +51,20 @@ public class PauseMenu : MonoBehaviour
     }
     public void Resume()
     {
+        main.Play();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         Paused = false;
     }
     void Pause()
     {
+        main.Pause();
+        
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         Paused = true;

@@ -55,7 +55,7 @@ public class MovementController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!(collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Melee Hitbox")))
+        if (!(collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Melee Hitbox")|| collision.gameObject.CompareTag("Enemy")))
         {
             ContactPoint[] contactPoints = collision.contacts;
             for (int i = 0; i < contactPoints.Length; i++)

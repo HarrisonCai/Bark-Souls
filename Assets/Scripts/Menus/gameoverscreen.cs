@@ -13,7 +13,7 @@ public class gameoverscreen : MonoBehaviour
     public GameObject WinCondition;
     public GameObject button;
     public GameObject Player;
-
+    public AudioSource main;
     MovementController check;
 
     bool winner = false;
@@ -32,11 +32,13 @@ public class gameoverscreen : MonoBehaviour
         {
             Player.GetComponent<MovementController>().m_rigidBody.velocity = Vector3.zero;
             Unalive();
+            main.Pause();
 
         }else if (winCon)
         {
             Player.GetComponent<MovementController>().m_rigidBody.velocity = Vector3.zero;
             Win();
+            main.Pause();
         }
     }
     void Win()
